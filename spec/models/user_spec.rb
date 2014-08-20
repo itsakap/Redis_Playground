@@ -44,6 +44,8 @@ describe User do
     context 'when user 2 follows user 1 back' do
       it "should add user 1 to list of user 2's friends and vice versa" do
         @user_2.follow!(@user_1)
+        expect(@user_1.followers).to include(@user_2)
+        expect(@user_2.following).to include(@user_1)
         expect(@user_1.friends).to include(@user_2)
         expect(@user_2.friends).to include(@user_1)
       end
