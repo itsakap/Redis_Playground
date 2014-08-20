@@ -12,9 +12,17 @@ describe User do
     }
   end
   context 'when all attributes are valid' do
-    it 'the record is valid' do
-        expect(User.new(@valid_attributes)).to be_valid
+    before :each do
+      @user = User.new(@valid_attributes)
     end
+    it 'the record is valid' do
+        expect(@user).to be_valid
+    end
+    it 'stores the correct information in redis_key' do
+        expect(@user.redis_key('')).to eq("user:1:")
+    end
+  end
+  context 'when attributes are invalid' do
     context 'name is missing' do
       it 'the record is not valid' do
         expect(User.new(name:'')).to be_invalid

@@ -1,1 +1,3 @@
 http://jimneath.org/2011/03/24/using-redis-with-ruby-on-rails.html#example_uses_in_rails
+
+Not as much efficacy in BDD since there is no UX in this example.
