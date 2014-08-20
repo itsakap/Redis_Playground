@@ -20,6 +20,7 @@ describe User do
     end
     it 'stores the correct information in redis_key' do
         expect(@user.redis_key('')).to eq("user:1:")
+        expect(@user.redis_key('blahblah')).to eq("user:blahblah")
     end
   end
   context 'when attributes are invalid' do
