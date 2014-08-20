@@ -20,7 +20,7 @@ describe User do
     end
     it 'stores the correct information in redis_key' do
         expect(@user.redis_key('')).to eq("user:1:")
-        expect(@user.redis_key('blahblah')).to eq("user:blahblah")
+        expect(@user.redis_key('blahblah')).to eq("user:1:blahblah")
     end
   end
   context 'when attributes are invalid' do
@@ -38,6 +38,7 @@ describe User do
     end
     it "should add 2nd user to list of users 1st user is following" do
       expect(@user_1.following).to include(@user_2)
+      # expect(@user_2.followed_by(@user_1)).to be true
     end
     it "should add 1st user to list of 2nd user's followers" do
       expect(@user_2.followers).to include(@user_1)
