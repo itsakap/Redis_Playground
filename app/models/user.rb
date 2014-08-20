@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
     User.where(:id => user_ids)
   end
 
-
+  def friends
+    user_ids = $redis.sinter(self.redis_key(:following), self.redis_key(:followers))
+    User.where(:id => user_ids)
+  end
 
 end
