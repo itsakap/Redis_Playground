@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   def follow!(user)
     $redis.multi do
       $redis.sadd(self.redis_key(:following), user.id)
-      $redis.sadd(user.redis_key(:followed),self.id)
+      $redis.sadd(user.redis_key(:followers),self.id)
     end
   end
 
@@ -16,10 +16,12 @@ class User < ActiveRecord::Base
     user_ids = $redis.smembers(self.redis_key(:following))
     User.where(:id => user_ids)
   end
-  
-  def followed
-    user_ids = $redis.smembers(self.redis_key(:followed))
+
+  def followers
+    user_ids = $redis.smembers(self.redis_key(:followers))
     User.where(:id => user_ids)
   end
+
+
 
 end
