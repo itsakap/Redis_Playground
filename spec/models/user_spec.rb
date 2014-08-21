@@ -32,13 +32,17 @@ describe User do
   end
   context 'when user 1 follows user 2' do
     before :each do
+      $redis.flushdb
       @user_1 = User.create!(@valid_attributes)
       @user_2 = User.create!(@valid_attributes_2)
       @user_1.follow!(@user_2)
+
     end
+
     it "should add 2nd user to list of users 1st user is following" do
       expect(@user_1.following).to include(@user_2)
       expect(@user_2.followed_by?(@user_1)).to be true
+      expect(@user_1.followed_by?(@user_2)).to be false
     end
     it "should add 1st user to list of 2nd user's followers" do
       expect(@user_2.followers).to include(@user_1)
