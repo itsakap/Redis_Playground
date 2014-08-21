@@ -11,6 +11,7 @@ describe User do
       name: "Jeff"
     }
   end
+  
   context 'when all attributes are valid' do
     before :each do
       @user = User.new(@valid_attributes)
@@ -23,6 +24,7 @@ describe User do
         expect(@user.redis_key('blahblah')).to eq("user:1:blahblah")
     end
   end
+
   context 'when attributes are invalid' do
     context 'name is missing' do
       it 'the record is not valid' do
@@ -30,6 +32,7 @@ describe User do
       end
     end
   end
+
   context 'when user 1 follows user 2' do
     before :each do
       $redis.flushdb
@@ -50,9 +53,11 @@ describe User do
       expect(@user_1.following_count).to eq 1
       expect(@user_2.following_count).to eq 0
     end
+
     it "should add 1st user to list of 2nd user's followers" do
       expect(@user_2.followers).to include(@user_1)
     end
+
     context 'when user 2 follows user 1 back' do
       it "should add user 1 to list of user 2's friends and vice versa" do
         @user_2.follow!(@user_1)
