@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     $redis.scard(self.redis_key(:followers))
   end
 
+  def following_count
+    $redis.scard(self.redis_key(:following))
+  end
+  
   def friends
     user_ids = $redis.sinter(self.redis_key(:following), self.redis_key(:followers))
     User.where(:id => user_ids)
