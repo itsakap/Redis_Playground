@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   end
   
   def followers_count
-    $redis.smembers(self.redis_key(:followers)).count
+    $redis.scard(self.redis_key(:followers))
   end
 
   def friends
