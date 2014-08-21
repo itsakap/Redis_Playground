@@ -1,3 +1,8 @@
+#from a gist: https://gist.github.com/pubis/1459506
+
+
+
+
 #config/redis.yml
 default:
   host: localhost

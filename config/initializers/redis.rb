@@ -1,3 +1,8 @@
+#from a Gist: https://gist.github.com/pubis/1459506
+
+
+
+#config/initializers/redis.rb
 require 'redis'
 
 REDIS_CONFIG = YAML.load( File.open( Rails.root.join("config/redis.yml") ) ).symbolize_keys

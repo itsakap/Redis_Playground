@@ -26,6 +26,14 @@ class User < ActiveRecord::Base
     $redis.sismember(self.redis_key(:followers), user.id)
   end
 
+  def following?(user)
+    $redis.sismember(self.redis_key(:following), user.id)
+  end
+  
+  def followers_count
+    $redis.smembers(self.redis_key(:followers)).count
+  end
+
   def friends
     user_ids = $redis.sinter(self.redis_key(:following), self.redis_key(:followers))
     User.where(:id => user_ids)
